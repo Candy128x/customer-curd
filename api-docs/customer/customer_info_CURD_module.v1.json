@@ -1,0 +1,361 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "customer_info_CURD_module",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000"
+    }
+  ],
+  "paths": {
+    "/customer/info/{id}/": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get User Info by User ID",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "User Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "id": 3,
+                      "first_name": "jhon",
+                      "last_name": "smith",
+                      "email": "js3@mail.com",
+                      "dob": null,
+                      "gender": 1,
+                      "extra": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-users-userId",
+        "description": "Retrieve the information of the user with the matching user ID."
+      },
+      "put": {
+        "summary": "",
+        "operationId": "put-customer-info-id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "id": 2,
+                      "first_name": "jhon",
+                      "last_name": "doe",
+                      "email": "jd2b@mail.com",
+                      "dob": "1991-01-01",
+                      "gender": 1,
+                      "extra": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "first_name": "jhon",
+                    "last_name": "doe",
+                    "email": "jd2b@mail.com",
+                    "dob": "1991-01-01",
+                    "gender": 1,
+                    "extra": {}
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "",
+        "operationId": "delete-customer-info-id",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "examples": {
+                  "entered invalid ID": {
+                    "value": {
+                      "detail": "Not found."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customer/info/": {
+      "post": {
+        "summary": "Create New User",
+        "operationId": "post-user",
+        "responses": {
+          "201": {
+            "description": "User Created",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "examples": {
+                  "example-1": {
+                    "value": "{\n    \"id\": 1,\n    \"first_name\": \"jhon\",\n    \"last_name\": \"doe\",\n    \"email\": \"jd1@mail.com\",\n    \"dob\": \"2020-12-10\",\n    \"gender\": 1,\n    \"extra\": {}\n}"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "examples": {
+                  "duplicate email": {
+                    "value": {
+                      "email": [
+                        "Customer with this email already exists!"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "first_name": {
+                    "type": "string",
+                    "example": "Jhon"
+                  },
+                  "last_name": {
+                    "type": "string",
+                    "example": "Doe"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "jhondoe@gmail.com"
+                  },
+                  "gender": {
+                    "type": "boolean"
+                  },
+                  "dob": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "1991-01-01"
+                  }
+                },
+                "required": [
+                  "first_name",
+                  "last_name",
+                  "email"
+                ]
+              },
+              "examples": {
+                "Create Customer": {
+                  "value": {
+                    "first_name": "jhon",
+                    "last_name": "doe",
+                    "email": "jd1@mail.com",
+                    "dob": "2020-12-10"
+                  }
+                }
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          },
+          "description": "Post the necessary fields for the API to create a new user."
+        },
+        "description": "Create a new user."
+      },
+      "parameters": [],
+      "get": {
+        "summary": "",
+        "operationId": "get-customer-info",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "examples": {
+                  "example-1": {
+                    "value": [
+                      {
+                        "id": 5,
+                        "first_name": "jhon",
+                        "last_name": "smith",
+                        "email": "js5@mail.com",
+                        "dob": null,
+                        "gender": 1,
+                        "extra": {}
+                      },
+                      {
+                        "id": 4,
+                        "first_name": "jhon",
+                        "last_name": "smith",
+                        "email": "js4@mail.com",
+                        "dob": null,
+                        "gender": 1,
+                        "extra": {}
+                      },
+                      {
+                        "id": 3,
+                        "first_name": "jhon",
+                        "last_name": "smith",
+                        "email": "js3@mail.com",
+                        "dob": null,
+                        "gender": 1,
+                        "extra": {}
+                      },
+                      {
+                        "id": 2,
+                        "first_name": "jhon",
+                        "last_name": "smith",
+                        "email": "js2b@mail.com",
+                        "dob": null,
+                        "gender": 1,
+                        "extra": {}
+                      },
+                      {
+                        "id": 1,
+                        "first_name": "jhon",
+                        "last_name": "smith",
+                        "email": "js@mail.com",
+                        "dob": null,
+                        "gender": 1,
+                        "extra": {}
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "title": "User",
+        "type": "object",
+        "description": "",
+        "x-examples": {
+          "Alice Smith": {
+            "id": 142,
+            "firstName": "Alice",
+            "lastName": "Smith",
+            "email": "alice.smith@gmail.com",
+            "dateOfBirth": "1997-10-31",
+            "emailVerified": true,
+            "signUpDate": "2019-08-24"
+          }
+        },
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Unique identifier for the given user."
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "format": "date",
+            "example": "1997-10-31"
+          },
+          "emailVerified": {
+            "type": "boolean",
+            "description": "Set to true if the user's email has been verified."
+          },
+          "createDate": {
+            "type": "string",
+            "format": "date",
+            "description": "The date that the user was created."
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "lastName",
+          "email",
+          "emailVerified"
+        ]
+      }
+    }
+  }
+}
